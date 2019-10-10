@@ -1,0 +1,20 @@
+prefix: "&3&lWARZONE &8»"
+
+help:
+  - "/w help - shows this"
+  - "/w take (item) (player) [amount] - Takes [amount] of (item) from (player) inv"
+  - "/w give (item) (player) [amount] - Gives (player) [amount] of (item)"
+  - "/w tradein (item) (player) [amount] - Takes [amount] of (item) from (player) inv and gives player an x amount of money"
+  - "/w items - Shows availabe items that can be used as (item)"
+  - "/w exchange - Exchange x amount of items to another"
+  - "/w reload - Reload configs"
+ 
+no-permission: "&cYou dont have permission to use this command"
+available-items: "§a§lAvailable items: §7%items%"
+invalid-item: "§e§lCheck valid Items: §7/w items"
+successfull-trade: "§7You sold §d%amount%x §7of %item_format%§7 for §d$%price%"
+dropped-item-on-ground: "§c§lDropped item on ground §7no inventory space"
+successfull-exchange: "§7Successfully exchanged §7%from_amount%x %from_item%§7 into §7%into_amount%x %into_item%§7 ."
+not-enough-items: "§7Not enough %from_item%§7"
+invalid-amount: "§cAmount §7cant be less then §l1§7."
+invalid-exchange-item: "§7This item does not have an exchange recipe"

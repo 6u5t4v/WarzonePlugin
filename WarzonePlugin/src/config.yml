@@ -1,0 +1,58 @@
+warzone-ores: #available warzone ores.
+  COAL_ORE: #the material name https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+    gem-chance: 2 #Chance of dropping an impure-gem fx: 2 out of 100
+    timeout: 60 #the time it takes for this ore to respawn after being broken (seconds)
+    custom-drop: "ImpureCoal" #Custom item made inside customitems.yml
+  IRON_ORE:
+    gem-chance: 5
+    timeout: 85
+    custom-drop: "ImpureIron"
+  GOLD_ORE:
+    gem-chance: 7
+    timeout: 100
+    custom-drop: "ImpureGold"
+  NETHER_QUARTZ_ORE:
+    gem-chance: 11
+    timeout: 115
+    custom-drop: "ImpureQuartz"
+  DIAMOND_ORE:
+    gem-chance: 15 
+    timeout: 130
+    custom-drop: "ImpureDiamond"
+    
+placeholder-block: BEDROCK #the block shown when a warzone ore has been broken.
+    
+exchange-recipes: #Settings for items you can exchange into other items using /w exchange (item) (player)
+  PureGem: #Identifier, just for clean sake
+    exchange-from: "ImpureGem" #The item the will be taken
+    from-amount: 9 #The amount of items that will be taken
+    exchange-into: "PureGem" #The item player gets in return
+    into-amount: 1 #The amount of items that will be returned
+  PureCoal:
+    exchange-from: ImpureCoal
+    from-amount: 9
+    exchange-into: PureCoal
+    into-amount: 1
+  PureIron:
+    exchange-from: ImpureIron
+    from-amount: 9
+    exchange-into: PureIron
+    into-amount: 1
+  PureGold:
+    exchange-from: ImpureGold
+    from-amount: 9
+    exchange-into: PureGold
+    into-amount: 1
+  PureQuartz:
+    exchange-from: ImpureQuartz
+    from-amount: 9
+    exchange-into: PureQuartz
+    into-amount: 1
+  PureDiamond:
+    exchange-from: ImpureDiamond
+    from-amount: 9
+    exchange-into: PureDiamond
+    into-amount: 1
+enabled-worlds:
+  - warzone
+
