@@ -1,4 +1,4 @@
-# WarzoneMania
+# WarzonePlugin
 A custome made plugin made by me for my minecraft server "Furnesse" (play.Furnesse.com).
 The idea for this plugin is to add some features to the warzone since the server is based around that, 
 this is adding warzone-ores which lets players mine specific ores or blocks set in config, and instead
