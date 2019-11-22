@@ -3,9 +3,9 @@ package com.furnesse.warzone.events;
 import java.util.Random;
 
 import org.bukkit.Effect;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,39 +15,41 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.furnesse.warzone.Lang;
 import com.furnesse.warzone.WarzonePlugin;
-import com.furnesse.warzone.utils.Utils;
 
 public class BreakBlockEvent implements Listener {
 
 	WarzonePlugin plugin = WarzonePlugin.instance;
-	
+
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent e) {
 		Player player = e.getPlayer();
 		Block block = e.getBlock();
 
-		if (WarzonePlugin.enabledWorlds.contains(player.getWorld())) {
-			if (isAvailableOre(block)) {
+		if (plugin.enabledWorlds.contains(player.getWorld())) {
+			if (plugin.availableOres.contains(block.getType().toString())) {
+				if (player.getGameMode().equals(GameMode.CREATIVE)) {
+					if (player.isSneaking()) {
+						return;
+					}
+				}
 				e.setCancelled(true);
-				e.setExpToDrop(0);
+//				e.setExpToDrop(0);
 				e.setDropItems(false);
-				
-				int seconds = WarzonePlugin.matTimeout.get(block.getType());
-				
-				Utils.getPlaceholders().put(block.getLocation(), block.getType()); // ADDING TO PLACEHOLDERS
-				
+
+				if (plugin.matTimeout.get(block.getType()) == null)
+					return;
+				int seconds = plugin.matTimeout.get(block.getType());
+
+				plugin.utils.getPlaceholders().put(block.getLocation(), block.getType()); // ADDING TO PLACEHOLDERS
+
 				giveDrops(player, block);
 
 				Material original = block.getType();
 				try {
 
 					block.getLocation().getWorld().playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES, 10);
-					
-					Material placeholder = Material.getMaterial(plugin.getConfig().getString("placeholder-block"));
 
-					if (placeholder != null) {
-						block.setType(placeholder);
-					}
+					block.setType(plugin.placeholder);
 
 				} catch (Exception e2) {
 					e2.printStackTrace();
@@ -56,25 +58,18 @@ public class BreakBlockEvent implements Listener {
 				new BukkitRunnable() {
 					@Override
 					public void run() {
-						Utils.getPlaceholders().remove(block.getLocation());
+						plugin.utils.getPlaceholders().remove(block.getLocation());
 						block.setType(original);
 					}
 				}.runTaskLater(plugin, 20L * seconds);
-				
-//				Bukkit.getServer().getScheduler().runTaskLater(plugin, () -> {
-//					
-//				}, seconds * 20L);
-				
 			}
 		}
 
 	}
 
 	public Boolean isAvailableOre(Block block) {
-		ConfigurationSection availableOres = plugin.getConfig().getConfigurationSection("warzone-ores");
-
-		if (availableOres != null) {
-			for (String materials : availableOres.getKeys(false)) {
+		if (plugin.availableOres != null) {
+			for (String materials : plugin.availableOres) {
 				try {
 					Material material = Material.getMaterial(materials);
 
@@ -110,7 +105,7 @@ public class BreakBlockEvent implements Listener {
 		ItemStack cDrop = plugin.getCustomItems().getItemFromBlock(block).getItemStack();
 		ItemStack luckyDrop = luckyDrop(block);
 
-		if (Utils.hasAvailableSlot(player, cDrop)) {
+		if (plugin.utils.hasAvailableSlot(player, cDrop)) {
 			player.getInventory().addItem(cDrop);
 		} else {
 			player.getWorld().dropItem(player.getLocation(), cDrop);
@@ -118,7 +113,7 @@ public class BreakBlockEvent implements Listener {
 		}
 
 		if (luckyDrop != null) {
-			if (Utils.hasAvailableSlot(player, luckyDrop)) {
+			if (plugin.utils.hasAvailableSlot(player, luckyDrop)) {
 				player.getInventory().addItem(luckyDrop);
 			} else {
 				player.getWorld().dropItem(player.getLocation(), luckyDrop);

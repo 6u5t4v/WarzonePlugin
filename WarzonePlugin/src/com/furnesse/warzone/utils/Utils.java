@@ -17,21 +17,25 @@ import com.furnesse.warzone.WarzonePlugin;
 
 public class Utils {
 
-	static WarzonePlugin plugin = WarzonePlugin.instance;
+	WarzonePlugin plugin;
 
-	static Map<Location, Material> placeholders = new HashMap<>();
+	public Utils(WarzonePlugin plugin) {
+		this.plugin = plugin;
+	}
+	
+	Map<Location, Material> placeholders = new HashMap<>();
 
-	public static Map<Location, Material> getPlaceholders() {
+	public Map<Location, Material> getPlaceholders() {
 		return placeholders;
 	}
 
-	public static boolean hasFreeSlot(Player player) {
+	public boolean hasFreeSlot(Player player) {
 		return (player.getInventory().firstEmpty() != -1);
 	}
 
 	// BUG > if player has full inventory (every slot full) while containing 64 item, it will return true
 	
-	public static boolean hasAvailableSlot(Player player, ItemStack item) {
+	public boolean hasAvailableSlot(Player player, ItemStack item) {
 		Inventory inv = player.getInventory();
 		
 		if (hasFreeSlot(player)) {
@@ -43,11 +47,11 @@ public class Utils {
 
 	}
 
-	public static void addItemToInv(Player player, ItemStack item, int amount){
+	public void addItemToInv(Player player, ItemStack item, int amount){
 		Inventory inv = player.getInventory();
 		
 		for (int i = 0; i < amount; i++) {
-			if (Utils.hasAvailableSlot(player, item)) {
+			if (hasAvailableSlot(player, item)) {
 				inv.addItem(item);
 			} else {
 				player.getWorld().dropItem(player.getLocation(), item);
@@ -56,7 +60,7 @@ public class Utils {
 		}
 	}
 	
-	public static void takeItemFromInv(Player player, ItemStack item, int amount) {
+	public void takeItemFromInv(Player player, ItemStack item, int amount) {
 		Inventory inv = player.getInventory();
 		CustomItem cItem = plugin.getCustomItems().getItemFromDisplayname(item.getItemMeta().getDisplayName());
 		
@@ -71,9 +75,11 @@ public class Utils {
 		}
 	}
 	
-	public static void particleEffect(Player player, Block block) {
+	public void particleEffect(Player player, Block block) {
 		Location loc = block.getLocation();
-
+		
+//		ArmorStand as = (ArmorStand) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
+		
 		int radius = 1;
 
 		for (int i = 0; i < 360; i += radius) {

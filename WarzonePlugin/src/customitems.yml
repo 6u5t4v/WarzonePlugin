@@ -1,146 +1,110 @@
 custom-items:
-  ImpureCoal: #Just an identifier, This is just to help you
-    name: "ImpureCoal" #Name of the item (you cant put spaces)
+  ImpureCoal: #Identifier (name of the item)
     material: COAL #The material name
     format: "§d§nImpure Coal" #The custom item format how the specific item is viewed
     lore: #Text shown under the item
     - " "
-    - "§8§l(§d§l!§8§l) §dSell at the §nWar Merchant§d!"
+    - "§8§l(§d§l!§8§l) §7Sell at the §d§nWar Merchant§7!"
     glowing: false #Should the item have the enchanted glow
     price: 0
-    gem-settings: 
-      gem-item: false #Is this item a gem (rarer) item.
-      lucky-drop: false #Can be receive as a lucky item while mining
+    lucky-drop: false #Can be receive as a lucky item while mining
   ImpureIron:
-    name: "ImpureIron"
     material: IRON_INGOT
     format: "§d§nImpure Iron"
     lore:
     - " "
-    - "§8§l(§d§l!§8§l) §dSell at the §nWar Merchant§d!"
+    - "§8§l(§d§l!§8§l) §7Sell at the §d§nWar Merchant§7!"
     glowing: false
     price: 0
-    gem-settings: 
-      gem-item: false
-      lucky-drop: false
+    lucky-drop: false
   ImpureGold:
-    name: "ImpureGold"
     material: GOLD_INGOT
     format: "§d§nImpure Gold"
     lore:
     - " "
-    - "§8§l(§d§l!§8§l) §dSell at the §nWar Merchant§d!"
+    - "§8§l(§d§l!§8§l) §7Sell at the §d§nWar Merchant§7!"
     glowing: false
     price: 0
-    gem-settings: 
-      gem-item: false
-      lucky-drop: false
+    lucky-drop: false
   ImpureQuartz:
-    name: "ImpureQuartz"
     material: QUARTZ
     format: "§d§nImpure Quartz"
     lore:
     - " "
-    - "§8§l(§d§l!§8§l) §dSell at the §nWar Merchant§d!"
+    - "§8§l(§d§l!§8§l) §7Sell at the §d§nWar Merchant§7!"
     glowing: false
     price: 0
-    gem-settings: 
-      gem-item: false
-      lucky-drop: false
+    lucky-drop: false
   ImpureDiamond:
-    name: "ImpureDiamond"
     material: DIAMOND
     format: "§d§nImpure Diamond"
     lore:
     - " "
-    - "§8§l(§d§l!§8§l) §dSell at the §nWar Merchant§d!"
+    - "§8§l(§d§l!§8§l) §7Sell at the §d§nWar Merchant§7!"
     glowing: false
     price: 0
-    gem-settings: 
-      gem-item: false
-      lucky-drop: false
+    lucky-drop: false
   PureCoal:
-    name: "PureCoal"
     material: COAL
     format: "§d§nPure Coal"
     lore:
     - " "
-    - "§8§l(§d§l!§8§l) §dSell at the §nWar Merchant§d!"
+    - "§8§l(§d§l!§8§l) §7Sell at the §d§nWar Merchant§7!"
     glowing: true
     price: 50
-    gem-settings: 
-      gem-item: false
-      lucky-drop: false
+    lucky-drop: false
   PureIron:
-    name: "PureIron"
     material: IRON_INGOT
     format: "§d§nPure Iron"
     lore:
     - " "
-    - "§8§l(§d§l!§8§l) §dSell at the §nWar Merchant§d!"
+    - "§8§l(§d§l!§8§l) §7Sell at the §d§nWar Merchant§7!"
     glowing: true
     price: 250
-    gem-settings: 
-      gem-item: false
-      lucky-drop: false
+    lucky-drop: false
   PureGold:
-    name: "PureGold"
     material: GOLD_INGOT
     format: "§d§nPure Gold"
     lore:
     - " "
-    - "§8§l(§d§l!§8§l) §dSell at the §nWar Merchant§d!"
+    - "§8§l(§d§l!§8§l) §7Sell at the §d§nWar Merchant§7!"
     glowing: true
     price: 500
-    gem-settings: 
-      gem-item: false
-      lucky-drop: false
+    lucky-drop: false
   PureQuartz:
-    name: "PureQuartz"
     material: QUARTZ
     format: "§d§nPure Quartz"
     lore:
     - " "
-    - "§8§l(§d§l!§8§l) §dSell at the §nWar Merchant§d!"
+    - "§8§l(§d§l!§8§l) §7Sell at the §d§nWar Merchant§7!"
     glowing: true
     price: 1000
-    gem-settings: 
-      gem-item: false
-      lucky-drop: false
+    lucky-drop: false
   PureDiamond:
-    name: "PureDiamond"
     material: DIAMOND
     format: "§d§nPure Diamond"
     lore:
     - " "
-    - "§8§l(§d§l!§8§l) §dSell at the §nWar Merchant§d!"
+    - "§8§l(§d§l!§8§l) §7Sell at the §d§nWar Merchant§7!"
     glowing: true
     price: 1250
-    gem-settings: 
-      gem-item: false
-      lucky-drop: false
+    lucky-drop: false
   ImpureGem:
-    name: "ImpureGem"
     material: FLINT
     format: "§d§nImpure Gem"
     lore:
     - " "
-    - "§8§l(§d§l!§8§l) §dSell at the §nWar Merchant§d!"
+    - "§8§l(§d§l!§8§l) §7Sell at the §d§nWar Merchant§7!"
     glowing: false
     price: 0
-    gem-settings: 
-      gem-item: true
-      lucky-drop: true
+    lucky-drop: true
   PureGem:
-    name: "PureGem"
     material: FLINT
     format: "§d§nPure Gem"
     lore:
     - " "
-    - "§8§l(§d§l!§8§l) §dSell at the §nWar Merchant§d!"
+    - "§8§l(§d§l!§8§l) §7Sell at the §d§nWar Merchant§7!"
     glowing: true
     price: 0
-    gem-settings: 
-      gem-item: true
-      lucky-drop: false
+    lucky-drop: false
 

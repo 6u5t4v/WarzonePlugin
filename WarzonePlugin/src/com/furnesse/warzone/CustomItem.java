@@ -15,19 +15,17 @@ public class CustomItem {
 	private List<String> lore;
 	private Material material;
 	private boolean glowing;
-	private boolean gem;
 	private boolean luckyDrop;
 	private ExchangeRecipe recipe;
 	private int price;
 
-	public CustomItem(String name, String format, List<String> lore, Material material, boolean glowing, boolean gem,
+	public CustomItem(String name, String format, List<String> lore, Material material, boolean glowing,
 			boolean luckyDrop, ExchangeRecipe recipe, int price) {
 		this.name = name;
 		this.format = format;
 		this.lore = lore;
 		this.material = material;
 		this.glowing = glowing;
-		this.gem = gem;
 		this.luckyDrop = luckyDrop;
 		this.recipe = recipe;
 		this.price = price;
@@ -68,14 +66,6 @@ public class CustomItem {
 
 	public void setLuckyDrop(boolean luckyDrop) {
 		this.luckyDrop = luckyDrop;
-	}
-
-	public boolean isGem() {
-		return gem;
-	}
-
-	public void setGem(boolean gem) {
-		this.gem = gem;
 	}
 
 	public boolean isGlowing() {

@@ -1,14 +1,13 @@
 name: WarzonePlugin
 author: 6u5t4v/g6u5t4v
 description: a plugin meant for WarzoneMania minecraft server, made by 6u5t4v
-version: 2.4
+version: 1.0
 main: com.furnesse.warzone.WarzonePlugin
 api-version: 1.14
-softdepend: [MultiverseCore]
 commands:
   warzone:
     description: main command command for the plugin
-    aliases: [w, warzoneplugin]
+    aliases: [w, warzoneplugin, warzonep]
     usage: /w help
 
       

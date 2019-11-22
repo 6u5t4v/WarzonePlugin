@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -15,7 +14,6 @@ import com.furnesse.warzone.CustomItem;
 import com.furnesse.warzone.Lang;
 import com.furnesse.warzone.Listeners;
 import com.furnesse.warzone.WarzonePlugin;
-import com.furnesse.warzone.utils.Utils;
 
 public class WarzoneCMD implements CommandExecutor {
 
@@ -76,12 +74,12 @@ public class WarzoneCMD implements CommandExecutor {
 					return true;
 				}
 
-				if (args[0].equalsIgnoreCase("respawner")) {
-					if (player.hasPermission("warzone.respawner")) {
+				if (args[0].equalsIgnoreCase("respawn")) {
+					if (player.hasPermission("warzone.respawn")) {
 						try {
-							if (Utils.getPlaceholders() != null) {
-								if (!Utils.getPlaceholders().isEmpty()) {
-									Utils.getPlaceholders()
+							if (plugin.utils.getPlaceholders() != null) {
+								if (!plugin.utils.getPlaceholders().isEmpty()) {
+									plugin.utils.getPlaceholders()
 											.forEach((location, material) -> location.getBlock().setType(material));
 									player.sendMessage(Lang.PREFIX + "§a§lRespawned all warzone ores!");
 								}
@@ -103,9 +101,14 @@ public class WarzoneCMD implements CommandExecutor {
 					if (player.hasPermission("warzone.exchange")) {
 						try {
 							Player target = Bukkit.getPlayer(args[2]);
-							CustomItem recipeTo = plugin.getCustomItems().getCustomItem(args[1]);
+							if(target == null) {
+								sender.sendMessage(args[2] + " Is not online");
+								return true;
+							}
+							
+							String recipe = args[1];
 
-							Listeners.exchangeGem(player, target, recipeTo);
+							Listeners.exchange(player, target, recipe);
 
 						} catch (Exception e) {
 							// TODO: handle exception
@@ -141,7 +144,7 @@ public class WarzoneCMD implements CommandExecutor {
 								return true;
 							}
 
-							Utils.takeItemFromInv(target, item, amount);
+							plugin.utils.takeItemFromInv(target, item, amount);
 
 						} catch (Exception e) {
 							// TODO: handle exception
@@ -210,7 +213,7 @@ public class WarzoneCMD implements CommandExecutor {
 								return true;
 							}
 
-							Utils.addItemToInv(target, item, amount);
+							plugin.utils.addItemToInv(target, item, amount);
 
 						} catch (Exception e) {
 							// TODO: handle exception
@@ -261,10 +264,9 @@ public class WarzoneCMD implements CommandExecutor {
 			if (args[0].equalsIgnoreCase("exchange")) {
 				try {
 					Player target = Bukkit.getPlayer(args[2]);
-					CustomItem recipeTo = plugin.getCustomItems().getCustomItem(args[1]);
-					ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
+					String recipe = args[1];
 
-					Listeners.exchangeGem(console, target, recipeTo);
+					Listeners.exchange(sender, target, recipe);
 
 				} catch (Exception e) {
 					// TODO: handle exception
@@ -327,7 +329,7 @@ public class WarzoneCMD implements CommandExecutor {
 						return true;
 					}
 
-					Utils.takeItemFromInv(target, item, amount);
+					plugin.utils.takeItemFromInv(target, item, amount);
 
 				} catch (Exception e) {
 					// TODO: handle exception
@@ -357,7 +359,7 @@ public class WarzoneCMD implements CommandExecutor {
 						return true;
 					}
 
-					Utils.addItemToInv(target, item, amount);
+					plugin.utils.addItemToInv(target, item, amount);
 				} catch (Exception e) {
 					// TODO: handle exception
 					e.printStackTrace();

@@ -1,4 +1,4 @@
-prefix: "&3&lWARZONE &8»"
+prefix: "&8『 &6&lWARZONE &8』 &7"
 
 help:
   - "/w help - shows this"
@@ -14,7 +14,7 @@ available-items: "§a§lAvailable items: §7%items%"
 invalid-item: "§e§lCheck valid Items: §7/w items"
 successfull-trade: "§7You sold §d%amount%x §7of %item_format%§7 for §d$%price%"
 dropped-item-on-ground: "§c§lDropped item on ground §7no inventory space"
-successfull-exchange: "§7Successfully exchanged §7%from_amount%x %from_item%§7 into §7%into_amount%x %into_item%§7 ."
+successfull-exchange: "§7Successfully exchanged §d&n%from_amount%x %from_item%§7 into &d&n%into_item%§7."
 not-enough-items: "§7Not enough %from_item%§7"
 invalid-amount: "§cAmount §7cant be less then §l1§7."
 invalid-exchange-item: "§7This item does not have an exchange recipe"

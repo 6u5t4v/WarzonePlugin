@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.inventory.ItemStack;
 
 public class ExchangeRecipes {
 
@@ -19,35 +20,44 @@ public class ExchangeRecipes {
 		ConfigurationSection availableExchangeItems = plugin.getConfig().getConfigurationSection("exchange-recipes");
 
 		exchangeRecipes.clear();
+		int amount = 0;
 		if (availableExchangeItems != null) {
 			for (String exchangeItem : availableExchangeItems.getKeys(false)) {
 				if (exchangeItem != null) {
 					try {
+						String name = exchangeItem.toString();
+
 						String from = plugin.getConfig()
 								.getString("exchange-recipes." + exchangeItem + ".exchange-from");
-						String into = plugin.getConfig()
-								.getString("exchange-recipes." + exchangeItem + ".exchange-into");
-						CustomItem exchangeFrom = plugin.getCustomItems().getCustomItem(from);
-						CustomItem exchangeTo = plugin.getCustomItems().getCustomItem(into);
+						String result = plugin.getConfig()
+								.getString("exchange-recipes." + exchangeItem + ".result.item");
+
+						ItemStack exchangeFrom = plugin.getCustomItems().getCustomItem(from).getItemStack();
+
 						int fromAmount = plugin.getConfig().getInt("exchange-recipes." + exchangeItem + ".from-amount");
-						int intoAmount = plugin.getConfig().getInt("exchange-recipes." + exchangeItem + ".into-amount");
 
-						ExchangeRecipe recipe = new ExchangeRecipe(exchangeFrom, exchangeTo, fromAmount, intoAmount);
-						exchangeRecipes.add(recipe);
-
-						if (recipe != null || exchangeTo != null) {
-							if (exchangeTo.getName() == recipe.getExchangeInto().getName()) {
-								exchangeTo.setRecipe(recipe);
-							}
+						if (result != null) {
+							ItemStack resultItem = plugin.getCustomItems().getCustomItem(result).getItemStack();
+							int resultAmount = plugin.getConfig()
+									.getInt("exchange-recipes." + exchangeItem + ".result.amount");
+							exchangeRecipes.add(
+									new ExchangeRecipe(name, exchangeFrom, resultItem, fromAmount, resultAmount, null));
+							amount++;
+							continue;
 						}
-						System.out.println("Loaded an exchange recipe: " + exchangeItem);
 
+						List<String> intoCmd = plugin.getConfig()
+								.getStringList("exchange-recipes." + exchangeItem + ".commands");
+						exchangeRecipes.add(new ExchangeRecipe(name, exchangeFrom, null, fromAmount, -1, intoCmd));
+
+						amount++;
 					} catch (Exception e) {
 						// TODO: handle exception
 						e.printStackTrace();
 					}
 				}
 			}
+			plugin.getLogger().info("Loaded " + amount + " exchange recipes");
 		}
 	}
 
@@ -55,10 +65,10 @@ public class ExchangeRecipes {
 		return exchangeRecipes;
 	}
 
-	public ExchangeRecipe getItemRecipes(CustomItem recipeItem) {
-		for (ExchangeRecipe recipes : exchangeRecipes) {
-			if (recipes.getExchangeInto().equals(recipeItem)) {
-				return recipes;
+	public ExchangeRecipe getItemRecipes(String recipeName) {
+		for (ExchangeRecipe recipe : exchangeRecipes) {
+			if (recipe.getName().equals(recipeName)) {
+				return recipe;
 			}
 		}
 

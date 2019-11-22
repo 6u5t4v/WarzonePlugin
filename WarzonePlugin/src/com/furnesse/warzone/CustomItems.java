@@ -23,11 +23,11 @@ public class CustomItems {
 
 		customItems.clear();
 		luckyDrops.clear();
+		int amount = 0;
 		if (cItemsList != null) {
 			for (String cItems : cItemsList.getKeys(false)) {
 				try {
-					String itemName = plugin.getConfigs().getCItemsConfig()
-							.getString("custom-items." + cItems + ".name");
+					String itemName = cItems.toString();
 					Material itemMaterial = Material.getMaterial(
 							plugin.getConfigs().getCItemsConfig().getString("custom-items." + cItems + ".material"));
 					String itemFormat = plugin.getConfigs().getCItemsConfig()
@@ -36,31 +36,31 @@ public class CustomItems {
 							.getStringList("custom-items." + cItems + ".lore");
 					boolean isGlowing = plugin.getConfigs().getCItemsConfig()
 							.getBoolean("custom-items." + cItems + ".glowing");
-					boolean isGem = plugin.getConfigs().getCItemsConfig()
-							.getBoolean("custom-items." + cItems + ".gem-settings.gem-item");
+
 					boolean isLuckyDrop = plugin.getConfigs().getCItemsConfig()
-							.getBoolean("custom-items." + cItems + ".gem-settings.lucky-drop");
+							.getBoolean("custom-items." + cItems + ".lucky-drop");
 
-					int price = plugin.getConfigs().getCItemsConfig()
-							.getInt("custom-items." + cItems + ".price");
-					
+					int price = plugin.getConfigs().getCItemsConfig().getInt("custom-items." + cItems + ".price");
+
 					ExchangeRecipe recipe = null;
-					
-					CustomItem customItem = new CustomItem(itemName, itemFormat, itemLore, itemMaterial, isGlowing,
-							isGem, isLuckyDrop, recipe, price);
-					customItems.add(customItem);
 
+					CustomItem customItem = new CustomItem(itemName, itemFormat, itemLore, itemMaterial, isGlowing,
+							isLuckyDrop, recipe, price);
+
+					customItems.add(customItem);
+					amount++;
+					
 					if (isLuckyDrop) {
 						luckyDrops.add(customItem);
 					}
-
-					System.out.println("Successfully loaded: " + customItem.getName());
-
+					
 				} catch (Exception e) {
 					// TODO: handle exception
 					e.printStackTrace();
 				}
 			}
+
+			plugin.getLogger().info("Loaded " + amount + " custom drops");
 		}
 	}
 
@@ -81,14 +81,14 @@ public class CustomItems {
 	}
 
 	public CustomItem getItemFromDisplayname(String name) {
-		for(CustomItem cItem : customItems) {
-			if(cItem.getItemStack().getItemMeta().getDisplayName().equals(name)) {
+		for (CustomItem cItem : customItems) {
+			if (cItem.getItemStack().getItemMeta().getDisplayName().equals(name)) {
 				return cItem;
 			}
 		}
 		return null;
 	}
-	
+
 	public CustomItem getItemFromBlock(Block block) {
 		for (String warzoneOre : plugin.getConfig().getConfigurationSection("warzone-ores").getKeys(false)) {
 			Material oreMaterial = Material.getMaterial(warzoneOre);

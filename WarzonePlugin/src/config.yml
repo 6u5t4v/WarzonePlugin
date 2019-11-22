@@ -26,33 +26,50 @@ exchange-recipes: #Settings for items you can exchange into other items using /w
   PureGem: #Identifier, just for clean sake
     exchange-from: "ImpureGem" #The item the will be taken
     from-amount: 9 #The amount of items that will be taken
-    exchange-into: "PureGem" #The item player gets in return
-    into-amount: 1 #The amount of items that will be returned
+    result:
+      item: "PureGem" #The item player gets in return
+      amount: 1 #The amount of items that will be returned
+    commands: [] #Commands to be ran on exchange
   PureCoal:
     exchange-from: ImpureCoal
     from-amount: 9
-    exchange-into: PureCoal
-    into-amount: 1
+    result:
+      item: PureCoal
+      amount: 1
+    commands: []
   PureIron:
     exchange-from: ImpureIron
     from-amount: 9
-    exchange-into: PureIron
-    into-amount: 1
+    result:
+      item: PureIron
+      amount: 1
+    commands: []
   PureGold:
     exchange-from: ImpureGold
     from-amount: 9
-    exchange-into: PureGold
-    into-amount: 1
+    result:
+      item: PureGold
+      amount: 1
+    commands: []
   PureQuartz:
     exchange-from: ImpureQuartz
     from-amount: 9
-    exchange-into: PureQuartz
-    into-amount: 1
+    result:
+      item: PureQuartz
+      amount: 1
+    commands: []
   PureDiamond:
     exchange-from: ImpureDiamond
     from-amount: 9
-    exchange-into: PureDiamond
-    into-amount: 1
+    result:
+      item: PureDiamond
+      amount: 1
+    commands: []
+  Warcoin:
+    exchange-from: PureGem
+    from-amount: 9
+    commands:
+    - "mc give %player% 1"
 enabled-worlds:
   - warzone
 

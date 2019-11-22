@@ -1,41 +1,66 @@
 package com.furnesse.warzone;
 
+import java.util.List;
+
+import org.bukkit.inventory.ItemStack;
+
 public class ExchangeRecipe {
 
-	private CustomItem exchangeFrom;
-	private CustomItem exchangeInto;
+	private String name;
+	private ItemStack exchangeFrom;
+	private ItemStack result;
 	private int fromAmount;
-	private int intoAmount;
-	
-	public ExchangeRecipe (CustomItem exchangeFrom, CustomItem exchangeInto, int fromAmount, int intoAmount) {
+	private int resultAmount;
+	private List<String> cmds;
+
+	public ExchangeRecipe(String name, ItemStack exchangeFrom, ItemStack result, int fromAmount, int resultAmount,
+			List<String> cmds) {
+		this.name = name;
 		this.exchangeFrom = exchangeFrom;
-		this.exchangeInto = exchangeInto;
+		this.result = result;
 		this.fromAmount = fromAmount;
-		this.intoAmount = intoAmount;
+		this.resultAmount = resultAmount;
+		this.cmds = cmds;
 	}
 
-	public int getIntoAmount() {
-		return intoAmount;
+	public String getName() {
+		return name;
 	}
 
-	public void setIntoAmount(int intoAmount) {
-		this.intoAmount = intoAmount;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public CustomItem getExchangeFrom() {
+	public List<String> getCmds() {
+		return cmds;
+	}
+
+	public void setCmds(List<String> cmds) {
+		this.cmds = cmds;
+	}
+
+	public int getResultAmount() {
+		return resultAmount;
+	}
+
+	public void setResultAmount(int resultAmount) {
+		this.resultAmount = resultAmount;
+	}
+
+	public ItemStack getExchangeFrom() {
 		return exchangeFrom;
 	}
 
-	public void setExchangeFrom(CustomItem exchangeFrom) {
+	public void setExchangeFrom(ItemStack exchangeFrom) {
 		this.exchangeFrom = exchangeFrom;
 	}
 
-	public CustomItem getExchangeInto() {
-		return exchangeInto;
+	public ItemStack getResult() {
+		return result;
 	}
 
-	public void setExchangeInto(CustomItem exchangeInto) {
-		this.exchangeInto = exchangeInto;
+	public void setResult(ItemStack result) {
+		this.result = result;
 	}
 
 	public int getFromAmount() {
@@ -45,6 +70,5 @@ public class ExchangeRecipe {
 	public void setFromAmount(int fromAmount) {
 		this.fromAmount = fromAmount;
 	}
-	
-	
+
 }

@@ -32,25 +32,27 @@ public class WarzonePlugin extends JavaPlugin {
 	private Configs configs = new Configs(this);
 	private CustomItems cItems = new CustomItems(this);
 	private ExchangeRecipes exchange = new ExchangeRecipes(this);
+	public Utils utils = new Utils(this);
 
-	public static List<World> enabledWorlds = new ArrayList<World>();
-	public static Map<Material, Integer> matTimeout = new HashMap<Material, Integer>();
+	public List<World> enabledWorlds = new ArrayList<World>();
+	public List<String> availableOres = new ArrayList<String>();
+	public Map<Material, Integer> matTimeout = new HashMap<Material, Integer>();
+	public Material placeholder;
 	
 	public void onEnable() {
 		instance = this;
 		configs.createCustomConfig();
 		configs.saveConfigs();
-		saveDefaultConfig();
-		registerCommands();
-		registerListeners();
 		if (!setupEconomy()) {
 			log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
 			getServer().getPluginManager().disablePlugin(this);
 			return;
 		}
-		serverOptions();
 		cItems.loadCustomItems();
 		exchange.loadExchangeItems();
+		serverOptions();
+		registerCommands();
+		registerListeners();
 
 		this.getLogger().info("Has been enabled v" + this.getDescription().getVersion());
 	}
@@ -80,9 +82,9 @@ public class WarzonePlugin extends JavaPlugin {
 	public void onDisable() {
 //		configs.saveConfigs();
 		try {
-			if (Utils.getPlaceholders() != null) {
-				if (!Utils.getPlaceholders().isEmpty()) {
-					Utils.getPlaceholders().forEach((location, material) -> location.getBlock().setType(material));
+			if (utils.getPlaceholders() != null) {
+				if (!utils.getPlaceholders().isEmpty()) {
+					utils.getPlaceholders().forEach((location, material) -> location.getBlock().setType(material));
 				}
 			}
 
@@ -97,6 +99,7 @@ public class WarzonePlugin extends JavaPlugin {
 		ConfigurationSection ores = getConfig().getConfigurationSection("warzone-ores");
 		matTimeout.clear();
 		if(ores != null) {
+			int amount = 0;
 			for(String warzoneBlock : ores.getKeys(false)) {
 				try {
 					Material mat = Material.getMaterial(warzoneBlock);
@@ -104,13 +107,26 @@ public class WarzonePlugin extends JavaPlugin {
 					if(mat != null || !(timeout <= 0)) {
 						matTimeout.put(mat, timeout);
 					}
-					
+					availableOres.add(warzoneBlock);
+					amount++;
 				} catch (Exception e) {
 					// TODO: handle exception
 					e.printStackTrace();
 				}
 			}
+			
+			this.getLogger().info("Loaded " + amount + " of warzone ores");
 		}
+		
+		String placeholderBlock = getConfig().getString("placeholder-block");
+		if (Material.getMaterial(placeholderBlock) != null) {
+			placeholder = Material.getMaterial(placeholderBlock);
+			this.getLogger().info("Loaded placeholder block: " + placeholderBlock);
+		}else {
+			placeholder = Material.BEDROCK;
+			this.getLogger().severe("Couldn't load placeholder block " + placeholderBlock + " using default.");
+		}
+		
 		
 		new BukkitRunnable() {
 			@Override
@@ -121,13 +137,12 @@ public class WarzonePlugin extends JavaPlugin {
 						World world = Bukkit.getWorld(enabledWorld);
 						if (world != null) {
 							enabledWorlds.add(world);
-							System.out.print("Enabled world: " + world.getName());
+							getLogger().info("Enabled world: " + world.getName());
 						} else {
-							System.out.print("World: " + enabledWorld + " Is not available");
+							getLogger().severe("World: " + enabledWorld + " Is not available");
 						}
 					}
 				}
-				System.out.print("We done hoe");
 			}
 		}.runTaskLater(this, 1);
 	}
